@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import L from 'leaflet';
 import PropTypes from 'prop-types';
+import stations from '../../public/data/stations';
 
 const StationMarker = ({ map, station, isActive, isNext }) => {
   const markerRef = useRef(null);
