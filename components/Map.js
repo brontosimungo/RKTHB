@@ -1,12 +1,13 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import StationMarker from './StationMarker';
 
 const Map = ({ trainPosition, currentStop, nextStop }) => {
   const mapRef = useRef(null);
   const trainMarkerRef = useRef(null);
   const routeLayerRef = useRef(null);
-  const stopsLayerRef = useRef(null);
+  const [stationsData, setStationsData] = useState([]);
 
   useEffect(() => {
     if (!mapRef.current) {
@@ -26,63 +27,38 @@ const Map = ({ trainPosition, currentStop, nextStop }) => {
           }).addTo(mapRef.current);
         });
 
-      // Load stasiun
+      // Load data stasiun
       fetch('/data/stations.geojson')
         .then(response => response.json())
         .then(data => {
-          stopsLayerRef.current = L.geoJSON(data, {
-            pointToLayer: (feature, latlng) => {
-              return L.marker(latlng, {
-                icon: L.divIcon({
-                  html: `<div class="station-marker">
-                          <span class="station-code">${feature.properties.code}</span>
-                          <span class="station-name">${feature.properties.name}</span>
-                        </div>`,
-                  className: 'station-icon'
-                })
-              }).bindPopup(`${feature.properties.name} (${feature.properties.code})`);
-            }
-          }).addTo(mapRef.current);
+          setStationsData(data.features);
         });
-
-      // Inisialisasi marker kereta
-      const trainIcon = L.icon({
-        iconUrl: '/images/train-icon.png',
-        iconSize: [32, 32],
-        iconAnchor: [16, 16]
-      });
-      
-      trainMarkerRef.current = L.marker([-6.3598, 106.2494], { 
-        icon: trainIcon,
-        zIndexOffset: 1000
-      }).addTo(mapRef.current);
     }
+  }, []);
 
-    // Update posisi kereta
-    if (trainPosition && trainMarkerRef.current) {
-      trainMarkerRef.current.setLatLng([trainPosition.lat, trainPosition.lng]);
+  // Render StationMarkers
+  const renderStationMarkers = () => {
+    return stationsData.map(station => {
+      const isActive = currentStop && station.properties.code === currentStop.kode;
+      const isNext = nextStop && station.properties.code === nextStop.kode;
       
-      // Update popup dengan info stasiun
-      let popupContent = 'KA 1672 Commuter Line Rangkasbitung';
-      if (currentStop) {
-        popupContent += `<br/>Stasiun Terakhir: ${currentStop.stasiun} (${currentStop.kode})`;
-      }
-      if (nextStop) {
-        popupContent += `<br/>Menuju: ${nextStop.stasiun} (${nextStop.kode})`;
-      }
-      
-      trainMarkerRef.current.bindPopup(popupContent).openPopup();
-    }
+      return (
+        <StationMarker
+          key={station.properties.code}
+          map={mapRef.current}
+          station={station}
+          isActive={isActive}
+          isNext={isNext}
+        />
+      );
+    });
+  };
 
-    return () => {
-      if (mapRef.current) {
-        mapRef.current.remove();
-        mapRef.current = null;
-      }
-    };
-  }, [trainPosition, currentStop, nextStop]);
-
-  return <div id="map" style={{ height: '600px', width: '100%' }} />;
+  return (
+    <div id="map" style={{ height: '600px', width: '100%' }}>
+      {mapRef.current && renderStationMarkers()}
+    </div>
+  );
 };
 
 export default Map;
