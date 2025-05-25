@@ -26,12 +26,12 @@ export default function Home() {
   return (
     <div className="container">
       <Head>
-        <title>Tracker KA 1672 Rangkasbitung - Tanah Abang</title>
+        <title>Tracker KA  Rangkasbitung - Tanah Abang</title>
         <meta name="description" content="Real-time tracking KA 1672 Commuter Line Rangkasbitung - Tanah Abang" />
       </Head>
 
       <main>
-        <h1>Tracker KA 1672 Rangkasbitung - Tanah Abang</h1>
+        <h1>Tracker KA  Rangkasbitung - Tanah Abang</h1>
         
         <div className="content">
           <div className="map-container">
