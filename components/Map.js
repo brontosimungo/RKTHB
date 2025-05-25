@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import StationMarker from './StationMarker';
-import jalurRel from '../public/data/jalurRel.json';
+import jalurRel from '../data/jalurRel.json';
 <L.GeoJSON
   data={jalurRel}
   style={() => ({
@@ -27,7 +27,7 @@ const Map = ({ trainPosition, currentStop, nextStop }) => {
       }).addTo(mapRef.current);
 
       // Load jalur rel
-      fetch('public/data/jalurRel.json')
+      fetch('/data/jalurRel.json')
         .then(response => response.json())
         .then(data => {
           routeLayerRef.current = L.geoJSON(data, {
@@ -36,7 +36,7 @@ const Map = ({ trainPosition, currentStop, nextStop }) => {
         });
 
       // Load data stasiun
-      ffetch('public/data/jalurRel.json')
+      ffetch('/data/jalurRel.json')
         .then(response => response.json())
         .then(data => {
           setStationsData(data.features);
