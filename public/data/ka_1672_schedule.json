@@ -1,0 +1,84 @@
+{
+  "nomor_ka": "1672",
+  "nama_ka": "Commuter Line Rangkasbitung",
+  "lintas_pelayanan": "THB-PRP",
+  "rute": [
+    {
+      "stasiun": "Tanahabang",
+      "kode": "THB",
+      "datang": null,
+      "berangkat": "17:40:00",
+      "keterangan": "Stasiun Awal"
+    },
+    {
+      "stasiun": "Palmerah",
+      "kode": "PLM",
+      "datang": "17:45:00",
+      "berangkat": "17:46:00",
+      "keterangan": null
+    },
+    {
+      "stasiun": "Kebayoran",
+      "kode": "KBY",
+      "datang": "17:51:00",
+      "berangkat": "17:52:00",
+      "keterangan": null
+    },
+    {
+      "stasiun": "Pondokranji",
+      "kode": "PDJ",
+      "datang": "17:59:00",
+      "berangkat": "18:00:00",
+      "keterangan": null
+    },
+    {
+      "stasiun": "Jurangmangu",
+      "kode": "JMU",
+      "datang": null,
+      "berangkat": null,
+      "keterangan": "Berhenti Sebentar"
+    },
+    {
+      "stasiun": "Sudimara",
+      "kode": "SDM",
+      "datang": "18:05:00",
+      "berangkat": "18:06:00",
+      "keterangan": null
+    },
+    {
+      "stasiun": "Rawabuntu",
+      "kode": "RU",
+      "datang": null,
+      "berangkat": null,
+      "keterangan": "Berhenti Sebentar"
+    },
+    {
+      "stasiun": "Serpong",
+      "kode": "SRP",
+      "datang": "18:14:00",
+      "berangkat": "18:15:00",
+      "keterangan": null
+    },
+    {
+      "stasiun": "Cisauk",
+      "kode": "CSK",
+      "datang": "18:18:00",
+      "berangkat": "18:19:00",
+      "keterangan": null
+    },
+    {
+      "stasiun": "Cicayur",
+      "kode": "CC",
+      "datang": null,
+      "berangkat": null,
+      "keterangan": "Berhenti Sebentar"
+    },
+    {
+      "stasiun": "Parungpanjang",
+      "kode": "PRP",
+      "datang": "18:29:00",
+      "berangkat": null,
+      "keterangan": "Stasiun Akhir"
+    }
+  ]
+}
