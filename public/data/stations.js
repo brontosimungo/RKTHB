@@ -1,4 +1,4 @@
-{
+const stations = {
   type: "FeatureCollection",
   features: [
     {
@@ -217,5 +217,6 @@
       }
     }
   ]
-}
-export default stations;
+};
+
+module.exports = stations;
