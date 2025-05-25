@@ -1,7 +1,8 @@
 import schedule from '../../public/data/ka_1672_schedule.json';
 import stations from '../../public/data/stations.js';
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
+  const stations = await import('../../public/data/stations.js');
   const now = new Date();
   const currentTime = now.getHours() * 60 + now.getMinutes();
   
