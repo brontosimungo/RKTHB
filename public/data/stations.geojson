@@ -1,0 +1,220 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Rangkasbitung",
+        "code": "RK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.249382, -6.359803]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Citeras",
+        "code": "CTR"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.282456, -6.333672]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Maja",
+        "code": "MJ"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.299876, -6.320541]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cikoya",
+        "code": "CKY",
+        "note": "Berhenti Sesuai Sb"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.317543, -6.312098]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tigaraksa",
+        "code": "TGS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.343201, -6.308701]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tenjo",
+        "code": "TEJ",
+        "note": "Berhenti Sesuai Sb"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.540123, -6.267301]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Daru",
+        "code": "DAR"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.583210, -6.245678]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cilejit",
+        "code": "CJT",
+        "note": "Berhenti Sesuai Sb"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.612345, -6.230987]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Parungpanjang",
+        "code": "PRP"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.653215, -6.224501]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cicayur",
+        "code": "CC",
+        "note": "Berhenti Sesuai Sb"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.689765, -6.210432]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cisauk",
+        "code": "CSK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.734543, -6.203215]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Serpong",
+        "code": "SRP"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.760987, -6.198765]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Rawabuntu",
+        "code": "RU",
+        "note": "Berhenti Sesuai Sb"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.772345, -6.195432]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sudimara",
+        "code": "SDM"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.789876, -6.189876]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Jurangmangu",
+        "code": "JMU",
+        "note": "Berhenti Sesuai Sb"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.801234, -6.187654]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Pondokranji",
+        "code": "PDJ"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.812345, -6.185432]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kebayoran",
+        "code": "KBY"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.798765, -6.178901]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Palmerah",
+        "code": "PLM"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.789012, -6.176543]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tanahabang",
+        "code": "THB"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.809301, -6.186601]
+      }
+    }
+  ]
+}
