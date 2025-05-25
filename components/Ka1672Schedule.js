@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import stations from '../../public/data/stations';
 
 const Ka1672Schedule = ({ onTrainSelect }) => {
   const [schedule, setSchedule] = useState(null);
