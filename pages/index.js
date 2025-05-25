@@ -2,7 +2,6 @@ import { useState } from 'react';
 import Head from 'next/head';
 import Map from '../components/Map';
 import Ka1672Schedule from '../components/Ka1672Schedule';
-import styles from '../styles/globals.css';
 
 export default function Home() {
   const [trainData, setTrainData] = useState(null);
