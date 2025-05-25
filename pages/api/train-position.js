@@ -1,5 +1,5 @@
 import schedule from '../../public/data/ka_1672_schedule.json';
-import stations from '../../public/data/stations.geojson';
+import stations from '../../public/data/stations.js';
 
 export default function handler(req, res) {
   const now = new Date();
