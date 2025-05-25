@@ -2,8 +2,7 @@ import schedule from '../../public/data/ka_1672_schedule.json';
 import stations from '../../public/data/stations';
 
 export default async function handler(req, res) {
-  const stations = await fetch(process.env.NEXT_PUBLIC_BASE_URL + '/data/stations.geojson')
-    .then(response => response.json());
+  const stations = require('../../public/data/stations');
   const now = new Date();
   const currentTime = now.getHours() * 60 + now.getMinutes();
   
