@@ -1,7 +1,10 @@
+import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import Head from 'next/head';
-import Map from '../components/Map';
 import Ka1672Schedule from '../components/Ka1672Schedule';
+
+// Import Map hanya di client-side, disable SSR
+const Map = dynamic(() => import('../components/Map'), { ssr: false });
 
 export default function Home() {
   const [trainData, setTrainData] = useState(null);
