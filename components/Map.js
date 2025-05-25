@@ -2,10 +2,11 @@ import { useEffect, useRef } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-const Map = ({ trainPosition }) => {
+const Map = ({ trainPosition, currentStop, nextStop }) => {
   const mapRef = useRef(null);
   const trainMarkerRef = useRef(null);
   const routeLayerRef = useRef(null);
+  const stopsLayerRef = useRef(null);
 
   useEffect(() => {
     if (!mapRef.current) {
@@ -21,7 +22,7 @@ const Map = ({ trainPosition }) => {
         .then(response => response.json())
         .then(data => {
           routeLayerRef.current = L.geoJSON(data, {
-            style: { color: 'blue', weight: 3 }
+            style: { color: '#0056b3', weight: 4 }
           }).addTo(mapRef.current);
         });
 
@@ -29,14 +30,17 @@ const Map = ({ trainPosition }) => {
       fetch('/data/stations.geojson')
         .then(response => response.json())
         .then(data => {
-          L.geoJSON(data, {
+          stopsLayerRef.current = L.geoJSON(data, {
             pointToLayer: (feature, latlng) => {
               return L.marker(latlng, {
                 icon: L.divIcon({
-                  html: `<div class="station-marker">${feature.properties.name}</div>`,
+                  html: `<div class="station-marker">
+                          <span class="station-code">${feature.properties.code}</span>
+                          <span class="station-name">${feature.properties.name}</span>
+                        </div>`,
                   className: 'station-icon'
                 })
-              }).bindPopup(feature.properties.name);
+              }).bindPopup(`${feature.properties.name} (${feature.properties.code})`);
             }
           }).addTo(mapRef.current);
         });
@@ -48,14 +52,26 @@ const Map = ({ trainPosition }) => {
         iconAnchor: [16, 16]
       });
       
-      trainMarkerRef.current = L.marker([-6.3598, 106.2494], { icon: trainIcon })
-        .addTo(mapRef.current)
-        .bindPopup('Kereta 1');
+      trainMarkerRef.current = L.marker([-6.3598, 106.2494], { 
+        icon: trainIcon,
+        zIndexOffset: 1000
+      }).addTo(mapRef.current);
     }
 
     // Update posisi kereta
     if (trainPosition && trainMarkerRef.current) {
       trainMarkerRef.current.setLatLng([trainPosition.lat, trainPosition.lng]);
+      
+      // Update popup dengan info stasiun
+      let popupContent = 'KA 1672 Commuter Line Rangkasbitung';
+      if (currentStop) {
+        popupContent += `<br/>Stasiun Terakhir: ${currentStop.stasiun} (${currentStop.kode})`;
+      }
+      if (nextStop) {
+        popupContent += `<br/>Menuju: ${nextStop.stasiun} (${nextStop.kode})`;
+      }
+      
+      trainMarkerRef.current.bindPopup(popupContent).openPopup();
     }
 
     return () => {
@@ -64,7 +80,7 @@ const Map = ({ trainPosition }) => {
         mapRef.current = null;
       }
     };
-  }, [trainPosition]);
+  }, [trainPosition, currentStop, nextStop]);
 
   return <div id="map" style={{ height: '600px', width: '100%' }} />;
 };
