@@ -1,15 +1,15 @@
 {
-  "type": "FeatureCollection",
-  "features": [
+  type: "FeatureCollection",
+  features: [
     {
-      "type": "Feature",
-      "properties": {
-        "name": "Rangkasbitung - Tanah Abang Line",
-        "color": "#0056b3"
+      type: "Feature",
+      properties: {
+        name: "Rangkasbitung - Tanah Abang Line",
+        color: "#0056b3"
       },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
+      geometry: {
+        type: "LineString",
+        coordinates: [
           [106.56986717482634, -6.344067067854271],  // Parungpanjang
           [106.50957548522325, -6.354338088636527],  // Cilejit
           [106.49242845471764, -6.3380073481707235], // Daru
