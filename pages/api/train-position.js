@@ -1,5 +1,5 @@
 import schedule from '../../public/data/ka_1672_schedule.json';
-import stations from '../../public/data/stations.geojson';
+import stations from '../../public/data/stations';
 
 export default async function handler(req, res) {
   const stations = await fetch(process.env.NEXT_PUBLIC_BASE_URL + '/data/stations.geojson')
