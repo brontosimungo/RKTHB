@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
-import Map from '../components/Map';
 import Ka1672Schedule from '../components/Ka1672Schedule';
 import jadwalKA from '../data/jadwal';
 import { timeStringToMinutes, interpolatePosition } from '../utils/interpolateTrainPosition';
