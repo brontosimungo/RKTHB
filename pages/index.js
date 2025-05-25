@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Map from '../components/Map';
 import Ka1672Schedule from '../components/Ka1672Schedule';
-import jadwal from '../data/jadwal';
+import jadwalKA from '../data/jadwal';
 import { timeStringToMinutes, interpolatePosition } from '../utils/interpolateTrainPosition';
 
 export default function Home() {
@@ -14,7 +14,7 @@ export default function Home() {
     const interval = setInterval(() => {
       const now = new Date();
       const nowMinutes = now.getHours() * 60 + now.getMinutes() + now.getSeconds() / 60;
-      const pos = interpolatePosition(nowMinutes, jadwalKA1672);
+      const pos = interpolatePosition(nowMinutes, jadwalKA);
       setTrainPosition(pos);
     }, 1000);
 
