@@ -1,13 +1,25 @@
-import dynamic from 'next/dynamic';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
+import Map from '../components/Map';
 import Ka1672Schedule from '../components/Ka1672Schedule';
-
-// Import Map hanya di client-side, disable SSR
-const Map = dynamic(() => import('../components/Map'), { ssr: false });
+import jadwalKA1672 from '../data/jadwal';
+import { timeStringToMinutes, interpolatePosition } from '../utils/interpolateTrainPosition';
 
 export default function Home() {
   const [trainData, setTrainData] = useState(null);
+  const [trainPosition, setTrainPosition] = useState(null);
+
+  useEffect(() => {
+    // Update posisi kereta tiap detik
+    const interval = setInterval(() => {
+      const now = new Date();
+      const nowMinutes = now.getHours() * 60 + now.getMinutes() + now.getSeconds() / 60;
+      const pos = interpolatePosition(nowMinutes, jadwalKA1672);
+      setTrainPosition(pos);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="container">
@@ -22,7 +34,7 @@ export default function Home() {
         <div className="content">
           <div className="map-container">
             <Map 
-              trainPosition={trainData?.position}
+              trainPosition={trainPosition}
               currentStop={trainData?.currentStop}
               nextStop={trainData?.nextStop}
             />
