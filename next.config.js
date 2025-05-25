@@ -1,10 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  webpack: (config) => {
+  webpack: (config, { isServer }) => {
     config.module.rules.push({
-      test: /\.geojson$/,
-      use: ['json-loader']
+      test: /\.json$/,
+      loader: '@next/webpack-asset-relocator-loader',
+      options: {
+        outputAssetBase: 'public/data',
+      },
     });
     return config;
   },
