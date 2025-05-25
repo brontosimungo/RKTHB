@@ -4,6 +4,11 @@ import Map from '../components/Map';
 import Ka1672Schedule from '../components/Ka1672Schedule';
 import jadwalKA from '../data/jadwal';
 import { timeStringToMinutes, interpolatePosition } from '../utils/interpolateTrainPosition';
+import dynamic from 'next/dynamic';
+
+const Map = dynamic(() => import('../components/Map'), {
+  ssr: false
+});
 
 export default function Home() {
   const [trainData, setTrainData] = useState(null);
