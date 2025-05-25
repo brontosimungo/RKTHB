@@ -36,7 +36,7 @@ const Map = ({ trainPosition, currentStop, nextStop }) => {
         });
 
       // Load data stasiun
-      fetch('      fetch('public/data/jalurRel.json')')
+      ffetch('public/data/jalurRel.json')
         .then(response => response.json())
         .then(data => {
           setStationsData(data.features);
