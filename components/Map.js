@@ -54,6 +54,27 @@ const Map = ({ trainPosition, currentStop, nextStop }) => {
     });
   };
 
+  // Update / render marker kereta saat posisi trainPosition berubah
+  useEffect(() => {
+    if (!mapRef.current || !trainPosition) return;
+
+    if (trainMarkerRef.current) {
+      trainMarkerRef.current.setLatLng(trainPosition);
+    } else {
+      // Icon kereta custom (bisa pakai icon image atau divIcon)
+      const trainIcon = L.divIcon({
+        html: `<div style="color:red; font-weight:bold;">🚆</div>`,
+        className: '',
+        iconSize: [24, 24],
+        iconAnchor: [12, 12],
+      });
+
+      trainMarkerRef.current = L.marker(trainPosition, { icon: trainIcon, zIndexOffset: 1100 })
+        .addTo(mapRef.current)
+        .bindPopup('Kereta KA 1672');
+    }
+  }, [trainPosition]);
+
   return (
     <div id="map" style={{ height: '600px', width: '100%' }}>
       {mapRef.current && renderStationMarkers()}
