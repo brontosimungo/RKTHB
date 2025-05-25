@@ -1,5 +1,5 @@
-{
-  "KA1606": [
+const jadwalKA = {
+  KA1606: [
     {
       "stasiun": "Parungpanjang",
       "kode": "PRP",
@@ -67,3 +67,4 @@
   // dst, tambah KA003, KA004, ...
 };
 
+export default jadwalKA;
