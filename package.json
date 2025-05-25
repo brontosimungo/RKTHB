@@ -18,6 +18,6 @@
   "devDependencies": {
     "eslint": "^8.47.0",
     "eslint-config-next": "^13.4.19",
-    "json5-loader": "^2.2.1"
+    "json5-loader": "1.1.1"
   }
 }
