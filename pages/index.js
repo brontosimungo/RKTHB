@@ -42,8 +42,7 @@ export default function Home() {
             />
           </div>
           
-          <div className="schedule-container">
-            <Ka1672Schedule onTrainSelect={setTrainData} />
+          
           </div>
         </div>
       </main>
