@@ -1,6 +1,6 @@
 {
   "name": "krl-tracker",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "eslint": "^8.47.0",
-    "eslint-config-next": "^13.4.19"
+    "eslint-config-next": "^13.4.19",
+    "json5-loader": "^4.0.1"
   }
 }
