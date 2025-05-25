@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import StationMarker from './StationMarker';
+import stations from '../../public/data/stations';
 
 const Map = ({ trainPosition, currentStop, nextStop }) => {
   const mapRef = useRef(null);
