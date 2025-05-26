@@ -1,1 +1,37 @@
-{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"coordinates":[[106.2515326068065,-6.352659754430377],[106.25400605257448,-6.352921848049391],[106.25712214178691,-6.353527374181937],[106.25808115935462,-6.353652044590618],[106.25921963541538,-6.35356166762422]],"type":"LineString"}}]}
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Jalur Rel Rangkasbitung - Tanah Abang",
+        "operator": "KAI Commuter",
+        "route": "Commuter Line Rangkasbitung"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [106.252, -6.453],  // Rangkasbitung
+          [106.283, -6.429],  // Citeras
+          [106.308, -6.408],  // Maja
+          [106.333, -6.386],  // Cikoya
+          [106.359, -6.364],  // Tigaraksa
+          [106.384, -6.342],  // Tenjo
+          [106.409, -6.320],  // Parung Panjang
+          [106.434, -6.298],  // Cilejit
+          [106.459, -6.276],  // Daru
+          [106.484, -6.254],  // Cicayur
+          [106.509, -6.232],  // Cisauk
+          [106.534, -6.210],  // Serpong
+          [106.559, -6.188],  // Rawabuntu
+          [106.584, -6.166],  // Sudimara
+          [106.609, -6.144],  // Jurangmangu
+          [106.634, -6.122],  // Pondok Ranji
+          [106.659, -6.100],  // Kebayoran
+          [106.684, -6.078],  // Palmerah
+          [106.709, -6.056]   // Tanah Abang
+        ]
+      }
+    }
+  ]
+}
