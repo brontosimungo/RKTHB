@@ -1,86 +1,72 @@
 import { useEffect, useRef, useState } from 'react';
+import { MapContainer, TileLayer, Marker, Polyline, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import StationMarker from './StationMarker';
-import jalurRel from '../data/jalurRel.json';
-<L.GeoJSON
-  data={jalurRel}
-  style={() => ({
-    color: jalurRel.features[0].properties.color,
-    weight: 4
-  })}
-/>
 
-const Map = ({ trainPosition, currentStop, nextStop }) => {
-  const mapRef = useRef(null);
-  const trainMarkerRef = useRef(null);
-  const routeLayerRef = useRef(null);
+export default function Map({ trainPosition, currentStop, nextStop }) {
+  const [routeData, setRouteData] = useState(null);
   const [stationsData, setStationsData] = useState([]);
 
-  useEffect(() => {
-    if (!mapRef.current) {
-      // Inisialisasi peta
-      mapRef.current = L.map('map').setView([-6.25, 106.6], 11);
-      
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      }).addTo(mapRef.current);
+  const mapRef = useRef();
 
-      // Load jalur rel
-      fetch('/data/jalurRel.json')
-        .then(response => response.json())
-        .then(data => {
-          routeLayerRef.current = L.geoJSON(data, {
-            style: { color: '#0056b3', weight: 4 }
-          }).addTo(mapRef.current);
-        });
-    }
+  useEffect(() => {
+    fetch('/data/jalurRel.json')
+      .then(response => response.json())
+      .then(data => {
+        setRouteData(data);
+        setStationsData(data.features || []);
+      })
+      .catch(err => {
+        console.error("Gagal memuat jalur rel:", err);
+      });
   }, []);
 
-  // Render StationMarkers
-  const renderStationMarkers = () => {
-    return stationsData.map(station => {
-      const isActive = currentStop && station.properties.code === currentStop.kode;
-      const isNext = nextStop && station.properties.code === nextStop.kode;
-      
-      return (
-        <StationMarker
-          key={station.properties.code}
-          map={mapRef.current}
-          station={station}
-          isActive={isActive}
-          isNext={isNext}
-        />
-      );
-    });
-  };
-
-  // Update / render marker kereta saat posisi trainPosition berubah
-  useEffect(() => {
-    if (!mapRef.current || !trainPosition) return;
-
-    if (trainMarkerRef.current) {
-      trainMarkerRef.current.setLatLng(trainPosition);
-    } else {
-      // Icon kereta custom (bisa pakai icon image atau divIcon)
-      const trainIcon = L.divIcon({
-        html: `<div style="color:red; font-weight:bold;">🚆</div>`,
-        className: '',
-        iconSize: [24, 24],
-        iconAnchor: [12, 12],
-      });
-
-      trainMarkerRef.current = L.marker(trainPosition, { icon: trainIcon, zIndexOffset: 1100 })
-        .addTo(mapRef.current)
-        .bindPopup('Kereta KA 1672');
-    }
-  }, [trainPosition]);
+  const trainIcon = L.divIcon({
+    className: 'train-icon',
+    html: `<div style="font-weight:bold; color:red; font-size:14px;">1672</div>`,
+    iconSize: [30, 30],
+    iconAnchor: [15, 15],
+  });
 
   return (
-    <div id="map" style={{ height: '600px', width: '100%' }}>
-      {mapRef.current && renderStationMarkers()}
-    </div>
-  );
-};
+    <MapContainer
+      center={[-6.2, 106.8]}
+      zoom={11}
+      style={{ height: "600px", width: "100%" }}
+      ref={mapRef}
+    >
+      <TileLayer
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution="&copy; OpenStreetMap contributors"
+      />
 
-export default Map;
+      {routeData && (
+        <Polyline
+          positions={routeData.features.map(f => f.geometry.coordinates.map(([lng, lat]) => [lat, lng])).flat()}
+          color="#0056b3"
+          weight={4}
+        />
+      )}
+
+      {stationsData.map((feature, idx) => {
+        const [lng, lat] = feature.geometry.coordinates;
+        const name = feature.properties?.nama || `Stasiun ${idx + 1}`;
+        return (
+          <Marker key={idx} position={[lat, lng]}>
+            <Popup>{name}</Popup>
+          </Marker>
+        );
+      })}
+
+      {trainPosition && (
+        <Marker position={trainPosition} icon={trainIcon}>
+          <Popup>
+            <strong>KA 1672</strong><br />
+            {currentStop && `Stasiun terakhir: ${currentStop.stasiun}`}<br />
+            {nextStop && `Berikutnya: ${nextStop.stasiun}`}
+          </Popup>
+        </Marker>
+      )}
+    </MapContainer>
+  );
+}
