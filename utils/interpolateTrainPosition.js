@@ -1,63 +1,61 @@
-export function timeStringToMinutes(timeStr) {
-  const [hours, minutes] = timeStr.split(':').map(Number);
-  return hours * 60 + minutes;
+export function interpolateAllPositions(jadwal, currentTimeMinutes) {
+  const positions = {};
+  for (const kaId in jadwal) {
+    positions[kaId] = interpolateTrainPosition(jadwal[kaId], currentTimeMinutes);
+  }
+  return positions;
 }
 
-export function interpolatePosition(nowMinutes, schedule) {
-  if (schedule.length === 0) return null;
+// Pastikan ini juga ada
+export function interpolateTrainPosition(jadwalKA, currentTimeMinutes) {
+  for (let i = 0; i < jadwalKA.length - 1; i++) {
+    const stop = jadwalKA[i];
+    const nextStop = jadwalKA[i + 1];
 
-  const first = schedule[0];
-  const last = schedule[schedule.length - 1];
+    const departureMinutes = timeStringToMinutes(stop.waktuBerangkat);
+    const arrivalMinutes = timeStringToMinutes(nextStop.waktuTiba);
 
-  const startMinutes = timeStringToMinutes(first.waktuBerangkat);
-  const endMinutes = timeStringToMinutes(last.waktuTiba);
+    if (departureMinutes !== null && arrivalMinutes !== null &&
+        currentTimeMinutes >= departureMinutes && currentTimeMinutes <= arrivalMinutes) {
 
-  // Sebelum perjalanan dimulai
-  if (nowMinutes < startMinutes) {
-    return {
-      koordinat: first.koordinat,
-      currentStop: null,
-      nextStop: first
-    };
-  }
+      const progress = (currentTimeMinutes - departureMinutes) / (arrivalMinutes - departureMinutes);
 
-  // Setelah perjalanan selesai
-  if (nowMinutes > endMinutes) {
-    return {
-      koordinat: last.koordinat,
-      currentStop: last,
-      nextStop: null
-    };
-  }
-
-  // Cari segmen waktu aktif
-  for (let i = 0; i < schedule.length - 1; i++) {
-    const current = schedule[i];
-    const next = schedule[i + 1];
-
-    const depart = timeStringToMinutes(current.waktuBerangkat);
-    const arrive = timeStringToMinutes(next.waktuTiba);
-
-    if (nowMinutes >= depart && nowMinutes <= arrive) {
-      const fraction = (nowMinutes - depart) / (arrive - depart);
-      const [lat1, lng1] = current.koordinat;
-      const [lat2, lng2] = next.koordinat;
-
-      const lat = lat1 + fraction * (lat2 - lat1);
-      const lng = lng1 + fraction * (lng2 - lng1);
+      const lon = stop.koordinat[0] + progress * (nextStop.koordinat[0] - stop.koordinat[0]);
+      const lat = stop.koordinat[1] + progress * (nextStop.koordinat[1] - stop.koordinat[1]);
 
       return {
-        koordinat: [lat, lng],
-        currentStop: current,
-        nextStop: next
+        koordinat: [lon, lat],
+        currentStop: stop,
+        nextStop: nextStop,
+        progress,
       };
     }
   }
 
-  // Jika tidak ditemukan (harusnya tidak terjadi)
+  // fallback: jika belum jalan atau sudah sampai tujuan
+  const first = jadwalKA[0];
+  const last = jadwalKA[jadwalKA.length - 1];
+  const now = currentTimeMinutes;
+
+  if (now < timeStringToMinutes(first.waktuBerangkat)) {
+    return {
+      koordinat: first.koordinat,
+      currentStop: null,
+      nextStop: first,
+      progress: 0,
+    };
+  }
+
   return {
     koordinat: last.koordinat,
     currentStop: last,
-    nextStop: null
+    nextStop: null,
+    progress: 1,
   };
+}
+
+function timeStringToMinutes(timeStr) {
+  if (!timeStr) return null;
+  const [h, m, s] = timeStr.split(':').map(Number);
+  return h * 60 + m + (s ? s / 60 : 0);
 }
