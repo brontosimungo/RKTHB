@@ -12,12 +12,17 @@ export default function Home() {
   const [trainPosition, setTrainPosition] = useState(null);
 
   useEffect(() => {
-    // Update posisi kereta tiap detik
     const interval = setInterval(() => {
       const now = new Date();
-      const nowMinutes = now.getHours() * 60 + now.getMinutes() + now.getSeconds() / 60;
-      const pos = interpolatePosition(nowMinutes, jadwalKA);
-      setTrainPosition(pos);
+      const jakartaTime = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Jakarta" }));
+      const nowMinutes = jakartaTime.getHours() * 60 + jakartaTime.getMinutes() + jakartaTime.getSeconds() / 60;
+
+      const result = interpolatePosition(nowMinutes, jadwalKA);
+      setTrainPosition(result.koordinat);
+      setTrainData({
+        currentStop: result.currentStop,
+        nextStop: result.nextStop
+      });
     }, 1000);
 
     return () => clearInterval(interval);
@@ -26,25 +31,26 @@ export default function Home() {
   return (
     <div className="container">
       <Head>
-        <title>Tracker KA  Rangkasbitung - Tanah Abang</title>
-        <meta name="description" content="Real-time tracking KA 1672 Commuter Line Rangkasbitung - Tanah Abang" />
+        <title>Tracker KA Rangkasbitung - Tanah Abang</title>
+        <meta name="description" content="Real-time tracking KA Commuter Line Rangkasbitung - Tanah Abang" />
       </Head>
 
       <main>
-        <h1>Tracker KA  Rangkasbitung - Tanah Abang</h1>
-        
+        <h1>Tracker KA Rangkasbitung - Tanah Abang</h1>
+
         <div className="content">
           <div className="map-container">
-            <Map 
-              trainPosition={trainPosition}
-              currentStop={trainData?.currentStop}
-              nextStop={trainData?.nextStop}
-            />
+            {trainPosition ? (
+              <Map 
+                trainPosition={trainPosition}
+                currentStop={trainData?.currentStop}
+                nextStop={trainData?.nextStop}
+              />
+            ) : (
+              <p>Memuat posisi kereta...</p>
+            )}
           </div>
-          
-          
-          </div>
-        
+        </div>
       </main>
     </div>
   );
