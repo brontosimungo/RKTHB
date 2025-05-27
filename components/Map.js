@@ -34,13 +34,6 @@ const Map = ({ trainPosition, currentStop, nextStop }) => {
             style: { color: '#0056b3', weight: 4 }
           }).addTo(mapRef.current);
         });
-
-      // Load data stasiun
-      ffetch('/data/jalurRel.json')
-        .then(response => response.json())
-        .then(data => {
-          setStationsData(data.features);
-        });
     }
   }, []);
 
